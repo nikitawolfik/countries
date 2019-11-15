@@ -1,0 +1,32 @@
+@import '../../styles/settings/colors';
+
+.flag {
+  max-width: 360px;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  background-color: $color-light-grey;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+}
+
+.input {
+  width: 100%;
+}
+
+.rowContainer {
+  width: 60%;
+  overflow-y: scroll;
+  height: calc(100vh - 68px*2);
+  border-radius: 6px;
+}

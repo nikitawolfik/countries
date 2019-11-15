@@ -1,0 +1,101 @@
+@import '../../styles/settings/colors';
+@import '../../styles/mixins/responsive';
+@import '../../styles/base';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+
+  &Column {
+    flex-direction: column;
+  }
+}
+
+.inputContainer {
+  margin: 0;
+  position: relative;
+  width: 100%;
+  display: flex;
+}
+
+.label {
+  composes: caption;
+  align-self: flex-start;
+  opacity: .6;
+  margin-top: 10px;
+  margin-right: 20px;
+  width: 75px;
+  min-width: 75px;
+
+  &Vertical {
+    margin-top: 0;
+    width: 200px;
+  }
+}
+
+.labelActive {
+  opacity: .9 !important;
+}
+
+.labelError {
+  opacity: 1;
+  color: $color-red;
+}
+
+.input {
+  composes: body;
+  outline: none;
+  border: 0;
+  background: $color-pale-grey;
+  width: 100%;
+  height: 40px;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 5px;
+
+  @include respond-to(md) {
+    font-size: 16px;
+  }
+}
+
+.input:focus {
+  border: 1px solid $color-yellow;
+  background-color: $color-pale-grey;
+}
+
+.textarea {
+  margin-bottom: -4px;
+  padding: 12px 0;
+  resize: none;
+  height: auto;
+}
+
+.errorBox {
+  composes: caption;
+  color: $color-red;
+  height: 24px;
+
+  span {
+    font-size: 12px;
+  }
+
+  &Vertical {
+    margin-left: 0;
+  }
+}
+
+.inputError {
+  border: 1px solid $color-red;
+}
+
+.input:focus ~ .bar::before,
+.input:focus ~ .bar::after {
+  width: 50%;
+}
+
+.hide {
+  display: none;
+}

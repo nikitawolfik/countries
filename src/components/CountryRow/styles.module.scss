@@ -1,0 +1,16 @@
+@import '../../styles/settings/colors';
+
+.container {
+  display: flex;
+  background-color: $color-grey-link;
+  height: 40px;
+  border: 1px solid $color-pale-grey;
+  border-radius: 6px;
+  align-items: center;
+  padding: 4px 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-grey-darker;
+  }
+}
