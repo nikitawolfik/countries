@@ -1,8 +1,25 @@
-import { api } from 'redux/types';
+import { getCountries } from '../../helpers/constants';
+import axios from '../../helpers/setup';
 
-export const getCountryNames = (action) => ({
-  ...action,
-  type: api.countries.getCountryNames.request,
-  url: 'all/',
-  method: 'get',
+const request = () => ({
+  type: getCountries.request,
 });
+
+const success = (payload) => ({
+  type: getCountries.success,
+  data: payload.data,
+});
+
+const failure = (error) => ({
+  type: getCountries.failure,
+  error,
+});
+
+export const getCountryNames = () => (
+  dispatch => {
+    dispatch(request());
+    axios.get('/all')
+      .then(res => dispatch(success(res)))
+      .catch(err => dispatch(failure(err)));
+  }
+);

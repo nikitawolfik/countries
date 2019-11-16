@@ -1,15 +1,15 @@
 import Immutable from 'seamless-immutable';
-import { api } from 'redux/types';
+import { getCountries } from '../../helpers/constants';
 
-export const initialState = Immutable({
+export const initialState = {
   data: [],
-});
+};
 
 export default (state = initialState, action) => {
-  if (action.type === api.countries.getCountryNames.success) {
-    return Immutable(state).merge({
-      data: action.payload,
-    });
+  if (action.type === getCountries.success) {
+    return ({
+      data: action.data || [],
+    })
   }
 
   return state;
