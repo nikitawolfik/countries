@@ -103,6 +103,6 @@ CountryData.propTypes = {
 
 export default connect(state => ({
   countries: state.entities.countries.data,
-}), {
-  getCountryNames: api.countries.getCountryNames,
-})(CountryData);
+}), dispatch => ({
+  getCountryNames: () => dispatch(api.countries.getCountryNames()),
+}))(CountryData);
