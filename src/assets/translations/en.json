@@ -4,5 +4,6 @@
   "name": "Name",
   "capital": "Capital",
   "population": "Population",
-  "list_empty": "There are no countries that meet search criteria"
+  "list_empty": "There are no countries that meet search criteria",
+  "flag": "flag"
 }

@@ -68,55 +68,52 @@ const CountryData = ({ countries, getCountryNames }) => {
             hideSubmitButton
             closeButtonText={translate('close', lang)}
           >
-            {toggleModal => {
-              return (
-                <Transition
-                  in={showList}
-                  timeout={350}
-                  unmountOnExit
-                  mountOnEnter
-                  enter
-                >
-                  {listAnimation => (
-                    <div
-                      //  className={styles.rowContainer}
-                      className={cx(
-                        styles.rowContainer,
-                        {
-                          [styles.entering]: listAnimation === 'entering',
-                          [styles.exiting]: listAnimation === 'exiting',
-                        },
-                      )}
-                    >
-                      {data.map(({ name, capital, population, flag }) => (
-                        <CountryRow
-                          key={name}
-                          name={name}
-                          onClick={() => {
-                            setTitle(name);
-                            const countryData = (
-                              <div>
-                                <p><b>{translate('name', lang)}:</b> {name}</p>
-                                <p><b>{translate('capital', lang)}:</b> {capital}</p>
-                                <p><b>{translate('population', lang)}:</b> {population.toLocaleString()}</p>
-                                <img className={styles.flag} src={flag} alt="flag" />
-                              </div>
-                            );
-                            setContent(countryData);
-                            toggleModal();
-                          }}
-                        />
-                      ))}
-                      {!data.length && (
-                        <div className={styles.listEmpty}>
-                          {translate('list_empty', lang)}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </Transition>
-              );
-            }}
+            {toggleModal => (
+              <Transition
+                in={showList}
+                timeout={350}
+                unmountOnExit
+                mountOnEnter
+                enter
+              >
+                {listAnimation => (
+                  <div
+                    className={cx(
+                      styles.rowContainer,
+                      {
+                        [styles.entering]: listAnimation === 'entering',
+                        [styles.exiting]: listAnimation === 'exiting',
+                      },
+                    )}
+                  >
+                    {data.map(({ name, capital, population, flag }) => (
+                      <CountryRow
+                        key={name}
+                        name={name}
+                        onClick={() => {
+                          setTitle(name);
+                          const countryData = (
+                            <div>
+                              <p><b>{translate('name', lang)}:</b> {name}</p>
+                              <p><b>{translate('capital', lang)}:</b> {capital}</p>
+                              <p><b>{translate('population', lang)}:</b> {population.toLocaleString()}</p>
+                              <img className={styles.flag} src={flag} alt={translate('flag', lang)} />
+                            </div>
+                          );
+                          setContent(countryData);
+                          toggleModal();
+                        }}
+                      />
+                    ))}
+                    {!data.length && (
+                      <div className={styles.listEmpty}>
+                        {translate('list_empty', lang)}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </Transition>
+            )}
           </Modal>
         </div>
       )}
