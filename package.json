@@ -57,6 +57,7 @@
     "react-final-form": "^6.3.0",
     "react-modal": "^3.11.1",
     "react-redux": "^7.1.3",
+    "react-transition-group": "^4.3.0",
     "redux": "^4.0.4",
     "redux-entities": "github:NikitaNeganov/sager-to-es-import#es6-to-es-import",
     "redux-promise-listener": "^1.1.1",

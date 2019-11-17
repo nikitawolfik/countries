@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
+import Transition from 'react-transition-group/Transition';
+import cx from 'classnames';
 
 import { api } from 'redux/actions';
 import { Modal, Input, ChooseLocale, CountryRow } from 'components';
@@ -15,6 +17,7 @@ const CountryData = ({ countries, getCountryNames }) => {
   const [data, setData] = React.useState(countries);
   const [modalTitle, setTitle] = React.useState('');
   const [content, setContent] = React.useState(null);
+  const [showList, setShowList] = React.useState(false);
 
   React.useEffect(() => {
     getCountryNames();
@@ -24,8 +27,10 @@ const CountryData = ({ countries, getCountryNames }) => {
     console.log(country);
     if (country) {
       setData(countries.filter(c => c.name.toLowerCase().includes(country.toLowerCase())))
+      setShowList(true);
     } else {
-      setData([]);
+      setData(countries);
+      setShowList(false);
     }
   }
 
@@ -66,27 +71,51 @@ const CountryData = ({ countries, getCountryNames }) => {
           >
             {toggleModal => {
               return (
-                <div className={styles.rowContainer}>
-                  {data.map(({ name, capital, population, flag }) => (
-                    <CountryRow
-                      key={name}
-                      name={name}
-                      onClick={() => {
-                        setTitle(name);
-                        const countryData = (
-                          <div>
-                            <p><b>{translate('name', lang)}:</b> {name}</p>
-                            <p><b>{translate('capital', lang)}:</b> {capital}</p>
-                            <p><b>{translate('population', lang)}:</b> {population.toLocaleString()}</p>
-                            <img className={styles.flag} src={flag} alt="flag" />
-                          </div>
-                        );
-                        setContent(countryData);
-                        toggleModal();
-                      }}
-                    />
-                  ))}
-                </div>
+                <Transition
+                  in={showList}
+                  timeout={350}
+                  unmountOnExit
+                  mountOnEnter
+                  enter
+                >
+                  {listAnimation => (
+                    <div
+                      //  className={styles.rowContainer}
+                      className={cx(
+                        styles.rowContainer,
+                        {
+                          [styles.entering]: listAnimation === 'entering',
+                          [styles.exiting]: listAnimation === 'exiting',
+                        },
+                      )}
+                    >
+                      {data.map(({ name, capital, population, flag }) => (
+                        <CountryRow
+                          key={name}
+                          name={name}
+                          onClick={() => {
+                            setTitle(name);
+                            const countryData = (
+                              <div>
+                                <p><b>{translate('name', lang)}:</b> {name}</p>
+                                <p><b>{translate('capital', lang)}:</b> {capital}</p>
+                                <p><b>{translate('population', lang)}:</b> {population.toLocaleString()}</p>
+                                <img className={styles.flag} src={flag} alt="flag" />
+                              </div>
+                            );
+                            setContent(countryData);
+                            toggleModal();
+                          }}
+                        />
+                      ))}
+                      {!data.length && (
+                        <div className={styles.listEmpty}>
+                          {translate('list_empty', lang)}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </Transition>
               );
             }}
           </Modal>
