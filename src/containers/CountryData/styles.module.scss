@@ -1,5 +1,7 @@
 @import '../../styles/settings/colors';
 
+$animation-time: 350ms;
+
 .flag {
   max-width: 360px;
 }
@@ -28,5 +30,39 @@
   width: 60%;
   overflow-y: scroll;
   height: calc(100vh - 68px*2);
-  border-radius: 6px;
+}
+
+.listEmpty {
+  display: flex;
+  margin-top: 20px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.entering {
+  transition: all ease-in-out $animation-time;
+  animation: showList $animation-time ease-in-out;
+}
+
+.exiting {
+  transition: all ease-in-out $animation-time;
+  animation: hideList $animation-time ease-in-out;
+}
+
+@keyframes showList {
+  from {
+    height: 0px;
+  }
+  to {
+    height: calc(100vh - 68px*2)
+  }
+}
+
+@keyframes hideList {
+  from {
+    height: calc(100vh - 68px*2)
+  }
+  to {
+    height: 100px;
+  }
 }
