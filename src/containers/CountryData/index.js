@@ -24,7 +24,6 @@ const CountryData = ({ countries, getCountryNames }) => {
   }, []);
 
   const onSubmit = ({ country }) => {
-    console.log(country);
     if (country) {
       setData(countries.filter(c => c.name.toLowerCase().includes(country.toLowerCase())))
       setShowList(true);
